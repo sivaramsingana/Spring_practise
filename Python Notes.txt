@@ -1,0 +1,543 @@
+		Python Beginning
+		=================
+		
+		1)Everthing in python is an object
+		2)Every object has a type
+		3) you can specify number of decimal places
+		f---float
+		.NF -- where N is number of decimal places ex: {:.2f}
+		order of boolean operators
+		=========================
+		not,and,or
+		
+		Anything surrounded by paranthasis is evaluated first and its own unit
+		Basic syntax of defining a function is 
+		
+		def function_name(parameters)
+		
+		parameters order is not necessary
+		
+		Lists:
+		------
+		List is a data type that holds an ordered collection of items.
+		you can have list of lists
+		
+		animals = ['man','bear','cat']
+		print (animals[-1])=====prints last element
+		print (animals[-2])=====prints second last element...i.e., bear
+		
+		use append to add anything to the list and use extend method to add more elemnets or list
+		use insert method to add elements using index...
+		use range method to print values within that range...you can use step value to put condition and print values
+		
+		ex: for number in range(1,10,2)--output: 1,3,5,7,9....there is difference of 2 in each of these values
+		Dictionaries
+		=============
+		Dictionaries are key value pairs,called as items...can have arrays,hash tables,hashes....
+		dictionaries_name = {key1:value1,key N:value N}
+		Tuple
+		=======
+		
+		A tuple list is an immutable list...which means not changeable list.
+		
+		
+		
+		
+		
+		
+		
+		Written Programs
+		-----------------
+		1)ConcurrentHashMap
+		2)Sum of digits of elements of an array? ex: 235,45,64,78   ==> 10,9,11,15
+		3)convert list to array and print largest element
+		4)Find the missing number in an array?
+		5) reverse string using a stack?
+		6) Balanced Paranthesis
+		7)
+		
+		Interview Q&A
+		
+		1) how do you maintain relationship between many to many relationship in tables?
+		
+		A: By using third table, we can maintain relationship b/wn many relations from one table to another.
+		
+		2) Effective use of super and this?
+		A:  super keyword is used to access methods of the parent class while this is used to access methods of the current class.
+		
+		3) Reflection? how do we use them?
+		A) Reflection is an API which is used to find out the behaviour of a class or method.If you don't use this api bcoz of too much complexity.
+		
+		4) lazy loading?
+		A: we don't allow things to jump into utilising some thing/execution,we allow things when and where they need.it's not just called we are allowing execution etc
+		5)
+		
+		
+		1) Sort integers in list
+		A: Sort using collections.sort method.another way is to use stream.sort method.Using comparator or comparable if list of object type.
+		2)Bean,IOC? A: Same as notes
+		3)how to find missing number in between 1 to 100?
+		A)sum or difference or multiplication
+		4)Application context logic?
+		A)ApplicationContextFactory
+		5)
+		
+		1)Implement transactional properties using jdbc2.0?
+		A) 
+		
+		2)jdbc vs hibernate differences?
+		A)
+		
+		3)How do we deploy spring boot application?
+		A)By default, Spring boot provides embeded web server(Tomcat) which will deploy application automatically.No separate web server is required.if you want to deploy into different web server then export application as war and then deploy application.
+		
+		1) Inheritance types
+		A) There are different types of inheritance types available those are single level interface,multi level interface,multiple interface etc...
+		2) Static Binding?
+		3) Run time polymorphism
+		4) Compile time Polymorphism
+		5) Dynamic Binding
+		6) 
+		
+		1) What is wrapper class? Why do we use Wrapper classes?
+		A) Wrapper class is a class whose object contains a primitive data types....ex. Integer wrapper class for int data type...Wrapper classes are immutable
+		2) If we don't specify wrapper class then will that collection allow to do insertion/sorting of elements?
+		A) Yes, it will allow to insert/sort elements but it will create a problem when we try to insert elements to DB from collection.
+		3) How to Sort keys in a HashMap?
+		A) Using TreeMap
+		4) Why is insertion/removal slow in linkedList than arraylist?
+		A) Bcoz linkedlist follows double linkedlist datastructure.I you want to insert/remove it has to insert/remove previous/next node values into it.
+		5) Byte a=127,b=127;
+		   a = a+b; //cannot able to convert to int...add cast to byte
+		   b += a; // += operator is undefined for byte.
+		
+		how to group by age from a employee class
+		employee{
+		int age;
+		string name;
+		}
+		
+		15: S1,S5
+		16: S3
+		17: S2,S4
+		
+		public void groupbyage()
+		{
+		
+			stored in a list
+		
+		}
+		
+		
+		Student > Sid, Age, Name
+Book > Bid, Title, Subject
+PurchaseHistory > Sid, Bid
+
+
+1, Title 1, History
+2, Title 2 , Science
+3, Title 3, Maths
+4, Title 4, Science
+5, Title 5, Civics
+
+
+
+
+1, 1
+1, 2
+1, 3
+1, 4
+1, 5
+
+
+
+i/p > sid
+o/p > Favorite subject of that student
+
+
+
+select b.subject from book b, purchase p where p.sid =? and b.bid =(select max(bid) from purchase p, book b where p.sid =? group by count(p.bid))
+
+
+/recommendations/{sid}
+
+
+	1) How to stop cloning an object while calling a DB Instance/using singleton?
+	A) Override the clone method and throw new CloneNotSupportedException() which will stop you to clone the object.
+	2) Do we able to throw exceptions in run method in threads.
+	A) No,if throw it will override the method interface in runnable interface
+	3) Why concurentHashMap allows to add/remove elements in middle of a loop?/Internal Implementation of ConurrentHashMap?
+	A) It also follows Map internal implmentation. In Map internal data structure called segement will get locked while adding/removing.In ConcurentHashMap it will allow concurent threads to read the value from not getting locked.
+	4)How Map manages collisions or duplicate hashcode?
+	A) Map will check if both hashcodes are equal or not if yes then objects will be compare by using equals method.If objects are not equal then it will add new entry.
+	
+	public V put(K key, V value) {
+    int hash = hash(key.hashCode());
+    int i = indexFor(hash, table.length);
+    // i is the index where we want to insert the new element
+    addEntry(hash, key, value, i);
+    return null;
+	}
+
+	void addEntry(int hash, K key, V value, int bucketIndex) {
+    // take the entry that's already in that bucket
+    Entry<K,V> e = table[bucketIndex];
+    // and create a new one that points to the old one = linked list
+    table[bucketIndex] = new Entry<>(hash, key, value, e);
+	}
+
+		Interview Questions
+		===================
+		1) What is AbstractHashMap?
+		2) How many times did servlet will get instantiated?
+		A) Only one time for any number of requests
+		3) Servlet life cycle?
+		A) 
+		4) Path Param
+		5) Difference between controller and rest controller
+		6) How to sort two same names from an employee class?using comparator?
+		
+		
+		
+		
+		
+		MicroServices
+		=============
+		
+		Service registery-- This will register all the available service...
+		
+		
+		Spring Core
+		=============
+		What is Bean?
+		A bean is a java class that should follow following conventions:
+
+		1)It should have no args constructor
+		2)It should be serializable
+		3)It should provide getter setters
+		
+		IOC Containers
+		==============
+		
+						PojoClasses(employee.java)
+							||
+							||
+						 ------------------------	
+	MetaData(bean.xml)--->| The Spring Containers	|
+						 ------------------------	
+							||
+							||    Final Result
+							||
+						Ready to use application
+		
+		*** MetaData can be either XML,Java Annotations or java code
+		
+		Container gets it's instructions on what objects to instantiate,configure,and assemble by reading the configuration MetaData
+		
+		==================================
+		2 distinct type of containers IOC
+		
+		Spring BeanFactoy
+		Spring ApplicationContext
+		==================================
+		***ApplicationContext manages all beans...
+		Construcor will be called by default...when you instantiate metadata for a class,then constructor will be called...
+		Pass values to a constructor either by type or by index.
+		Use REF tag for reffering any class or bean...
+		
+		syntax: <constructor-arg index="<index value/position>" ref="<bean ID>" />
+		We used constructor injection set attribute values..if we want to pass values directly through getter setters,then we use property values.
+		
+		idref tag is used for validations.It does same as ref tag.
+		Alias
+		=======
+		Alias is used to change the bean id name/to reffer a bean with different alias name/to
+		you can override(you can change bean id) existing alias name...existing data will be loaded to that perticular bean...
+		
+		Collections in Beans:
+		=====================
+		You can pass collection(like list) values using bean configuration itself...
+		AutoWiring
+		============
+		In Spring5.0,we don't have auto wiring,but we can set manually using ref tag
+		Auto wiring can be done...using no auto wire,by name,by type,by constructor,by auto wire default..
+		
+		****We are creating a bean autowiring using the beans in a interface.
+		To autowire, we need to tell spring these 3 questions.1)what are beans2)What are it's dependencies3)Where to search for beans.
+		1)to tell about bean you need to use @conmponet annotation.
+		2) To tell dependencies you need to use @autowired annotation
+		
+		@Component
+		===========
+		Generally spring allows only one bean to intiate using @component.If you wish to intiate another bean then use @primary annotation.In this case which ever defined @primary will be called first.
+		
+		@Repository
+		============
+		This marks the specific class as a Data access Object
+		
+		@Service
+		=========
+		This acts as a service component for a class.
+		
+		Scopes
+		======
+		singleton,prototype....singleton is by default one.
+		
+		singleton---scopes to a single bean definition to single object instance per Spring IOC containers
+		prototype--scopes to a single bean definition to multiple objects instances
+		request--scopes to a single bean definition to single HTTP request--scopes
+		session--scopes to a single bean definition to single HTTP session
+		globalsession--scopes to a single bean definition to a single HTTP global session
+		
+		Spring MVC
+		----------
+		In maven try to create everything in a proper way else you will end up with some errors
+		Context:componentscan---It will define you where you need to look for controller,request mapping...etc...
+		context:anotation-config: it is used to define that we are going to use annotations for configurations
+		
+		MVC---Model view controller
+		
+		Model--- Model encapsulates the application data...generally it contains POJO classes
+		View --It generates HTML output 
+		Controller--is responsible for user request and building an appropriate model and passes it to view rendering
+		Dispatcher Servlet: Spring mvc framework is designed arround dispatcher servlet that handles all HTTP requests and responses
+		
+		||					||
+		Http request 	Http responses
+		||					||
+		==================================================
+		||	Dispatcher Servlet							||
+		==================================================
+		||				||				||				||
+	Handler mapping		Controller 		View Resolver	View
+		
+		*** By default spring has a internal view resolver...this we can override using internal view resolver
+		Internal view resolver will add prefix and sufixes for finding view...prefix can be path and view will be jsp page
+		
+		Controller takes the request and calls the appropriate service methods based on used GET and POST methods 
+		
+		Handler mapping ,controller and view resolver are parts of WebApplicationContext which is an extension of PlainApplicationContext.
+		
+		ModelMap
+		--------
+		Just like model,it is also used to render a view.Advantage of model map is it gives us the ability to pass a collection of values and treat
+		these values as if they were within a map.
+		
+		Model and view
+		--------------
+		pass all the information required in one pass...
+		
+		Spring Rest API
+		----------------
+		We use @RestController instead of @controller to specify this is a rest end point and not a regular end point.
+		@ResponseBody annotation to specify that we are returning plain text and not a view name.
+		Response Entity:
+		---------------
+		We can customise our HTTP response using resoponse entity class.Using this,We can add headers,set content type etc.
+		If we are using response entity, we don't need to specify @ResponseBody.Spring will detect automatically.
+		
+		
+		Spring Boot
+		===========
+		Features---Quickly create spring application,Auto configurations,
+		
+		If you want to generate simple springboot application you create it by using spring initalizer.go to start.spring.io webpage and choose all versions like java,maven,spring boot,etc...and type of dependencies like web,webservices,etc... and generate.This will generate a java application which we can use to develop spring applications quickly or will be able to start without configuring anything.
+		
+		Use this link to know more on how to generating and running a springboot/rest application: https://spring.io/guides/gs/rest-service/
+		
+		After importing your project to eclispe,run application and check logs are clear or not.if you face any issues like port issues then try to kill those process and run the application then it will work properly.
+		
+		if you are using lesser version of spring boot2,then you may get a chance of facing port issues.
+		
+		@SpringBootApplication:
+		-----------------------
+		1) It indicates that this is a spring context file
+		2) It enables auto configuration
+		3) It enables component scan
+		
+		SpringApplication.run use to run application context.We are passing a spring context as a input to it.This can return application context.
+		
+		@SpringBootTest:
+		----------------
+		This will launch test context for a perticular class.
+		
+		Spring Boot Autoconfiguration:
+		------------------------------
+		Spring boot looks at classpath first and then existing configuration for the application.
+		If it matches to that perticular context then only it will create bean.It will show all positive cases(matched cases) and negative cases(not matched cases)
+		
+		
+		***logging can be done at application.properties file.
+			
+		SpringBoot vs Spring vs Spring MVC:
+		-----------------------------------
+		
+		Spring: IOC/dependency Injection,Good integartion with other frameworks(mockito...)
+		Spring MVC: used for developing web applications.it makes easier to develop applications. 
+		Spring Boot: Autoconfiguration(configuring beans internally),provides starters(starter-web,starter-test,etc),enables monitoring,logging.
+		
+		Spring boot starters
+		---------------------
+		Spring boot provides different starters which will enable us to work easily.some starters like junit,spring-test,mockito, etc...
+		*** Yaml is one of the configuration languages spring boot supports.
+		*** Spring boot starter test dependencies enables us to test the application.
+		
+		Spring-boot-starter-web-services  -- SOAP Webservices
+		Spring-boot-starter-web  -- Web and Restful applications
+		Spring-boot-starter-test  -- unit testing and integration testing
+		Spring-boot-starter-jdbc  -- Traditional JDBC
+		Spring-boot-starter-security -- Authentication and authorization using spring security
+		Spring-boot-starter-hateoas -- Add HATEOAS service to your services
+		Spring-boot-starter-data-jpa -- Spring Data JPA with Hibernate   -- By default uses hibernate ORM
+		Spring-boot-starter-cache -- Enabling spring framework's caching support
+		Spring-boot-starter-data-rest -- Expose simple REST Services using Spring Data REST
+		
+		Other technical starters
+		-------------------------
+		Spring-boot-starter-actuator -- To use advance features like moitoring and tracing to your application out of the box
+		Spring-boot-starter-undertow,Spring-boot-starter-jetty,Spring-boot-starter-tomcat -- to pick ur specific choice of Embedded servlet container
+		Spring-boot-starter-logging -- For logging using logback
+		Spring-boot-starter-log4j -- For logging using log4j2
+		
+		Basic purpose of actuator is to monitor things say how many times a service is called....It provides more metadata to your application...
+		It exposes REST services...These services are complaint with hal standard.We use hal browser to check data.
+		
+		Hal browser will give you all details related to calls,links,response,request,etc...by default actuator allows hal browser
+		
+		
+		Spring-boot-devtools
+		--------------------
+		To automatically pickup changes(especially java).It makes development faster.
+		
+		CommandLineRunner interface is one of the interfaces available in spring boot.When we implement a commandLineRunner,this will lauch up that method wherever implemented whenever application context is ready
+		
+		SpringBoot Application.properties
+		---------------------------------
+		1)spring.h2.console.enabled=true  --> If we set this true,then we will be able to access h2-console.
+		2)spring.jpa.properties.hibernate.generate_statistics=true --> this is used to generate statistics for hibernate.This will give you a way to find out what is happening in background.
+		3)logging.level.org.hibernate.stat=debug  --> logging level for one specific package.This resoponsible for statistics.
+		4)spring.jpa.show.sql=true --> this will enable us to find out what parameters are seeted in queries.
+		5)spring.jpa.properties.hibernate.format_sql=true --> By default queries are not formatted.this setting will formate queries.
+		
+		
+		
+		Spring JDBC
+		-----------
+		1) create a spring jdbc project with web,jpa,jdbc and h2 dependencies.
+		
+		H2console
+		----------
+		After adding dependencies for h2 database,then you have to enable h2 console by setting spring.h2.console.enable to true in application.properties file.After that you will be able to see the h2 console by running to url(<host name:port>/h2-console)
+		Before running h2-console,make sure to run application bcoz,we opted for in-memory database.
+		
+		
+		Use this as default jdbc url: jdbc:h2:mem:testdb
+		
+		here mem is in-Memory.
+		
+		*** 	The URL jdbc:h2:mem:test means open an in-memory database named 'test'. Data is not persisted, and lost when the last connection to the database is closed. Multiple threads can access the same database, but data is only visible within the same process. 
+		
+		*** In place of mem you will be able to provide absolute path: /data/test
+		
+		h2-console only live as long as application is running.if application stops running db will gets killed. 
+		
+		Spring JDBC
+		===========
+		You have to use jdbctemplate for connecting with a database.
+		We have a mapper,which is used to map bean names with db table names.For a simple term,we have a BeanPropertyRowMapper(<classname.class>)
+		***	, if we define BeanPropertyRowMapper, We should define no arg constructor.In general,java provide default no arg constructor.Java will not create if we define args constructor.
+		
+		you can able to develop your own rowmapper by implementing a 'RowMapper' interface.Use of row mapper is you can call/use this rowmapper wherever needed.we get reusability as well in this case.
+		
+		Spring jdbc Vs JDBC
+		====================
+		
+		In JDBC,For doing a work like retrieve a list of rows in a table,we have to first create a connection and then we need to create a prepared statement,we need to execute the query,we need to get the values individually and add it to list and retrieve.One thing which is not handled properly is exceptions.If we get one exception in the middle of the code,connection will not get closed and this will make you lose connection.
+		
+		Spring JDBC--- We don't need to connect,error free from mistakes,exception handling.
+		
+		JPA & Hibernate
+		================
+		@Entity--- which is used to map a object(bean class) to a table.
+		@Table(name="Employee")-- which almost similar to @entity. we can able to define both together or only @entity is enough to map.
+		@Column-- which is used to map variable to a column in a table
+		@ID-- which tells that variable acts a primary key value in a mapped table
+		@GeneratedValue-- which is used to generate automatic ids for a column id/primary key columns.
+		@Repository--To make a class repository
+		@Transactional-- To maintain transaction(insert,update,fetch,etc)
+		@NamedQuery-- This is used to create a query for that entity.This annotation should be used only in entity class.
+		***syntax: @NamedQuery(Name="<provide name for query>",query="<should be JPQL query always>").This JPQL uses only entity classes but not database.
+		
+		Junit annotation--@DirtiesContext--this will reset data after performing some opertaion using junit.let's say if we deleted any data from db by using junit for verifying,it will delete internally and execute test case post completion of test case it will reset data in db.
+		
+		EntityManager
+		=============
+		It is a simple interface to persistent context.It manages the all entities.It manages all the opertaions we performed in a specific session.store operations in @persistentccontext.
+		
+		***Spring boot provides a schema updater...which will create a table whenever we run the application for a in-memory databse.
+		
+		EntityManager and methods:
+		--------------------------
+		Find-- this acts similar to a select query.Which will return results after query.
+		Merge-- This is used for updating or inserting a row in a table.
+		Remove-- This will remove a row in a table.
+		Persist-- will is used to insert a row into a table.
+		createNamedQuery-- this is used to get results after running a namedquery(ex:select query).
+		Elush--- The changes which are done to a point are sent to database/it is like a save point.
+		detach--- Changes to a object/value will not be tracked.
+		clear--- If you want to stop tracking all the objects/values then this method is useful.
+		refresh-- If you want to revert db changes done from a object/value,then use this method.
+		
+		*** Entity manager keeps track of all operations inside a method and updates/picks latest values and persisted to database.
+		
+		
+		JPQL---Java Persistant Query Language
+		======================================
+		Sql vs JPQL---In SQL we query from tables whereas in JPQL we query from enities.Whatever queries we write in JPQL are converted into SQL by JPA interfae.This provides a way to write query using entities.
+		
+		***Alt+Shift+L for creating a local variable.
+		
+		Typed queries are always better to use and provides result based on type(course/employee etc...)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+		

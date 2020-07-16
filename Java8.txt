@@ -1,0 +1,1431 @@
+Java Interview Questions practise
+==================================
+
+The main method accepts a single argument: an array of elements of type String.
+
+public static void main(String[] args)
+
+This(String[]) array is the mechanism through which the runtime system passes information to your application. For example:
+
+java MyApp arg1 arg2
+
+Each string in the array is called a command-line argument.
+
+***Hiding internal state and requiring all interaction to be performed through an object's methods is known as data encapsulation
+
+Bundling code into individual software objects provides a number of benefits, including:
+
+    Modularity: The source code for an object can be written and maintained independently of the source code for other objects. Once created, an object can be easily passed around inside the system.
+    Information-hiding: By interacting only with an object's methods, the details of its internal implementation remain hidden from the outside world.
+    Code re-use: If an object already exists (perhaps written by another software developer), you can use that object in your program. This allows specialists to implement/test/debug complex, task-specific objects, which you can then trust to run in your own code.
+    Pluggability and debugging ease: If a particular object turns out to be problematic, you can simply remove it from your application and plug in a different object as its replacement. This is analogous to fixing mechanical problems in the real world. If a bolt breaks, you replace it, not the entire machine.
+
+	
+OOPS Principles:
+----------------
+
+Abstraction:
+
+Providing essential features and hiding their implementation.
+
+Encapsulation:
+
+It is collection/capsule of all methods and variables inside a class.
+
+Inheritance:
+
+Way of reusing common behaviour from another class.
+
+Polymorphism:
+
+Using a method in different forms/ways
+
+
+
+
+
+Java Class Loaders
+===================
+3 types of class loaders available
+1)System class loader--- searches classes in classpath
+2)Extension class loader--- searches for classess in ext,lib,jre
+3)Bootstrap class loader--- which loads all the class files....
+
+Order of class loaders java looks--- it would start with system class loader and then it will go to extension class loader and then to bootstrap class loader...if class is not found it throws class not found exception
+
+Wrapper class
+=============
+Wrapper class is a class whose object contains a primitive data types....ex. Integer wrapper class for int data type...Wrapper classes are immutable
+why do we need wrapper classes?
+A) have lot of utitlity methods...can be used as a collection....
+
+StringS
+=======
+
+Immutability
+============
+Value of a string is created cannot be modified.Any modification on a string object creates a new String object
+
+Strings are stored in string constant pool which is in heap memory,if a compiler finds string literals,it checks if it exists in the pool,if exists it reuses
+
+****not using concat operation in loops because if use each time we are creating new objects,we are not reusing it.
+String s1="value1";
+String s2="value2";
+for(int i =0,i<10000;i++)
+{
+s3=s1+s2;
+}
+
+u can solve using string buffer
+=============
+string buffer vs builder
+========================
+string buffer
+-------------
+it is thread safe,performance is low
+
+string builder
+--------------
+not a thread safe,performance is faster..always use this.
+
+Arrays
+======
+A array is an object used to store elements in it.
+
+public void demoArray()
+		{
+			int a1[]; //not readable
+			int[] a2; // recommended
+			
+			
+			int[] temp={1,6,5,3,2,5,4};
+			System.out.println("Before conversion of array "+temp+" After conversion of array to string "+Arrays.toString(temp));
+			
+			int[] temp1=Arrays.copyOf(temp,temp.length);
+			System.out.println("After copying values are "+Arrays.toString(temp1)+" checking for array equality "+Arrays.equals(temp, temp1));
+			Arrays.sort(temp1);
+			System.out.println("After sorting"+Arrays.toString(temp1));
+			Arrays.fill(ar, 1, 5, 10); //Fill from index 1 to 4 with 10
+		
+		}
+	
+	o/p: Before conversion of array [I@ec0c6c65 After conversion of array to string [1, 6, 5, 3, 2, 5, 4]
+After copying values are [1, 6, 5, 3, 2, 5, 4] checking for array equality true
+After sorting[1, 2, 3, 4, 5, 5, 6]
+Arrays fill: {1,10,10,10,10,10,4}
+
+*** array equals method will check index to index...if all indexs are matched then it returns true.
+
+Arrays.parallelsort
+-------------------
+The sorting algorithm is a parallel sort-merge that breaks thearray into sub-arrays that are themselves sorted and then merged. Whenthe sub-array length reaches a minimum granularity, the sub-array issorted using the appropriate Arrays.sortmethod. If the length of the specified array is less than the minimumgranularity, then it is sorted using the appropriate Arrays.sort method. The algorithm requires aworking space no greater than the size of the original array. 
+
+Arrays.parallelsort(a)
+a -> array name
+
+Use Parallelsort for better performace than Arrays.sort method.
+
+equalsto and hashcode
+=====================
+Class c1= new class();
+Class c2= new Class();
+Class c3= c1;
+
+c1==c2  --> False...this is because they are pointing to different objects
+c1==c3  --> True...this is because they are pointing to same objects
+
+By default == method will look for object refference but not values in object
+If you want to compare to objects then use equalsto method..for this you have to declare a equals method in a class.Using equals you can compare an object with any other object or it's instance(like varaibles,object...)
+
+Coupling
+=========
+Coupling is a measure of how much a class is dependent on other classes.We should keep it low.Coupling will make us to use/define classes effectively and to reduce dependencies.
+
+Cohesion
+========
+Cohesion is a measure of how related responsiblities of a class are.It should be highly related to another.
+
+Variable Arguments
+==================
+Variable argument allow calling a method with different number of parameters.It will allow any number of parameters..it can be 0 or 1,4,5 and so on...
+
+Ex: syntax: type followed by 3 dots (int...)
+public int sum(int... numbers)  --> here numbers can be considered as array.and it has length which is similar to an array.
+{
+int sum=0;
+for(int number:numbers)
+{
+sum += number; 
+}
+return sum;
+}
+pvsm(){
+class.sum(3,4,5);//output will be 12
+class.sum();//0
+class.sum(9,10); //19
+}
+*** Variable args should be the last method in a class/method
+
+Encapsulation
+=============
+Encapsulation is hidding the implementation of a class behind well defined interface.Encapsulation helps us to change implementation of a class without breaking other code.
+
+Static and Instance Intializer
+===============================
+This runs everytime an instance of a class is created.If a block of code don't have static keyword then we can call them as instance intializer.
+
+public class initializerdemo{}
+int i 
+{
+System.out.println("This is a Instance Intializer");
+}
+public static void main()
+{
+initializerdemo i1= new initializerdemo();
+initializerdemo i2= new initializerdemo();
+initializerdemo i3= new initializerdemo();
+
+}
+}
+Output: This is a Instance Intializer
+		This is a Instance Intializer
+		This is a Instance Intializer
+
+Serialization
+=============
+It is basically a way to retrieve from byteStream to an object and save state of an object to byteStream.Use serializable interface to serialize an object.This is a marker interface,we don't have any methods to impelment here.
+
+*** Externalizable interface provides complete control of serialization process to application.JVM gives call back to readExternel() and writeExternal() of java.io.Externalizalbe interface for restoring and writing objects into persistence.
+
+Scenario1: If you want to serialize few vairables among a group of variables,then in this case use externalizable interface.
+
+*** if you make any variable as transient,it will not serialize.
+It has two important methods for serialize and de-serialize
+
+1)ObjectOutputStream.writeObject()//Serialize and write to a file
+2)ObjectInputStream.readObject() //read from file and de-serialize
+
+Collections
+===========
+Homogeneous collections-- In General,Arrays allow same kind of variables to insert into an array.This is called Homogeneous collection.Ex. Array[1,2,3],Array['a','b','c'];
+Heterogeneous Collections--  Here collection allow different kind of vairables to add into collection.
+
+
+Important interfaces in collections
+-----------------------------------
+Base interface is collection<E>....*** eventhough considered as collections,Map does not extend collection interface.
+
+Collection.sort(Using Comparable) method-- This method sorts in aplhabetical(A -1,a-2,...) or ascending order based on generic type.If comprable interface is not implemented by a class then you will not be able to use collections.sort method but for normal collections object you can use sort method.we must implement compareTo method in that class if we are implementing comparable.
+
+class Employee implements Comparable<Employee>{
+@Override
+	public int compareTo(Employee o) {
+		// TODO Auto-generated method stub
+		if(this.getId() == o.getId())
+		{
+		return 0;
+		}
+		else
+		{
+		return -1;	
+		}
+	}
+
+	 List<Employee> Llist = new LinkedList<Employee>();
+		 
+		 Llist.add(new Employee(1, "Ravi","Delhi"));
+		 Llist.add(new Employee(2, "Raj","Mumbai"));
+		 Llist.add(new Employee(3, "Rekha","Chennai"));
+		 Llist.add(new Employee(4, "Ram","Siliguri"));
+		 
+		 Collections.sort(Llist);
+		 
+o/p: 4 Ram Siliguri
+	 3 Rekha Chennai
+	 2 Raj Mumbai
+	 1 Ravi Delhi		 
+	
+Collections.sort(using Comparator) Method-- If you want to do a ordering(Ascending,descending,etc) of sorted list using a comparable,then you have to implement comparator interface.you must implement its compare method for comparision. 
+
+Syntax--Collections.sort(list,new Ascendingemp())
+class Ascendingemp implements Comparator<Employee>{
+
+		@Override
+		public int compare(Employee o1, Employee o2) {
+			// TODO Auto-generated method stub
+			
+	/*		if(o1.getId()>o2.getId()){
+			return 1;
+			}
+			else if(o1.getId()<o2.getId())
+			{
+				return -1;
+			}
+			return 0;*/
+			
+			return o1.getName().compareTo(o2.getName());
+		}		
+
+
+Comparable
+----------	
+1) Comparable provides a single sorting sequence. In other words, we can sort the collection on the basis of a single element such as id, name, and price.	
+2) Comparable affects the original class, i.e., the actual class is modified.	
+3) Comparable provides compareTo() method to sort elements.
+4) Comparable is present in java.lang package.	
+5) We can sort the list elements of Comparable type by Collections.sort(List) method.		
+
+Comparator
+---------
+1)The Comparator provides multiple sorting sequences. In other words, we can sort the collection on the basis of multiple elements such as id, name, and price etc.
+2)Comparator doesn't affect the original class, i.e., the actual class is not modified.
+3)Comparator provides compare() method to sort elements.
+4)A Comparator is present in the java.util package.
+5)We can sort the list elements of Comparator type by Collections.sort(List, Comparator) method.
+	
+List
+-----
+Maintains insertion order,able to retrive elements based on position.provides get and set methods apart from methods collection(add,remove,clear,removeif,etc) provides.
+Array List--- it is not thread safe,insertion and deletion are slower compared to LinkedList.It uses array for implementation.
+Vector--- It is thread safe,all methods are synchronised.
+LinkedList--- Elements are doubly linked-forward and backward-to one another,It also implements queue interface.It implements list as well.Iteration is slower in LinkedList than ArrayList,fast insertion and deletion,LinkedList has more memory overhead than ArrayList,it supoorts methods like peel or poll
+
+Set
+-----
+Does not support duplicates.two type of interfaces are there for set interface.
+
+SortedSet Interface-- it maintains elements in a sorted order.somemore methods--subset(E fromelement, E toelement),Headset(E toelement),tailset(E fromelement),first(),Last().
+
+NavigableSet Interface--It will not maintain sort order.It provides a sortedset extended with navigation methods--lower(),floor(),ceiling(),higher(),pollFirst(),pollLast()
+
+Implementations of set
+----------------------
+Hashset--unordered,unsorted,uses hashcode,No duplicates
+LinkedHashset--Maintains order of insertion,unsorted,uses hashcode,No duplicates
+Treeset---Implements set and navigableset,sorted order,no duplicates
+
+Map
+----
+SortedMap Interface-- Comparator can be provided at map creation time.It has submap(k,v),headmap(k,v),tailmap(k,v),firstkey(),lastkey()
+
+NavigableMap Interface-- It extends sortedmap interface.
+
+Implementations of Map
+----------------------
+HashMap--unsorted,unordered,key's hashcode is used,It allows a key with null values.
+HashTable-- synchronised,unsorted,unordered,key's hashcode is used,it doesn't allow null values.
+LinkedHashMap--- Insertion order is maintained,slower insertion and deletion,faster iteration
+TreeMap-- Impements navigablemap,sorted order is maintained
+
+Queue
+-----
+
+Queue Interface-- Queues are used where we need order processing operations.It has add(),offer(),remove(),poll(),element(),peek().offer and poll do the same thing like retrieve the top element and remove it but returns null if queue is empty.peek will return the element.
+
+Deque interface-- It is a double ended queue.it supports removing from both ends of the queue.you can add from both sides of queue.It has addfirst(),addlast(),offerfirst(),offerlast(),removefirst(),removelast(),pollfirst(),polllast(),getfirst(),getlast(),peekfirst,peeklast,removefirstoccurance(),removelastOccurance()
+
+BlockingQueue-- It is used when u want to support operations that weight for queue to become non empty.if queue is empty and you want to wait and retreive an element from the queue,in this case you can use blockingqueue.it has add(),offer(),put(),take(),poll(),remaining(),remove(),contains()
+
+Implementations of queue
+------------------------
+priorityQueue-- natural sorted order,impelments queue interface
+Arraydeque-- implements deque
+ArrayBlockingqueue-- Implements blockingqueue interface,uses array as data structure
+LinkedBlockingQueue-- Impements blockingQueue,uses linkedlist as data structure,better performance than arrayblocking queue.
+
+Collections class
+-----------------
+methods in it are--Most of them are static methods
+binarysearch(list,key(this is number which you want to serach)) -- can be used only on sorted list
+binarySearch(List,key,comparator)
+reverse(List)--reverse the order of elements in the list.
+Static Comparator reverseOrder()--returns a comparator that sorts the reverse of the collection current sort sequence
+static void sort(List)
+static void sort(List,comparator)
+
+Concurrent collections
+=======================
+All collections classes in java 1.5 are synchronized collections.Post 1.5,Collections using new approches to synchronization.These collections are called concurrent collections. There are some approches in concurrent collections
+
+1)copyOnWrite
+-------------
+All values are stored in a internal immutable array.A new array is created when there is any modifcation to the collection. Read operations are not synchronised.only write operations are synchronised.
+This is used where more number of read operations are available than write operations to the collection.We have 2 implementations for copyOnWrite---
+CopyOnWriteArrayList and CopyOnWriteArraySet.You can use this impleme when there is more number of reads and less number of writes.
+
+Compare and Swap
+----------------
+Introduced in 1.5. In compare and swap approcah,instead of synchronising entire method,the value of member vairable before calculation is cached.After the calculation,cached value is comapared with the new value,if there is a change then we swap the value.
+ConcurrentLinkedQueue uses this approcah.
+
+Locks
+----- 
+Lock and unlock methods are used to divide into different blocks and help enhance concurrency.
+
+*** Arrrays.asList(new String[]{'a','b'})---This type of opertaions are not supported.If we try to do such operation,then we get unsupportedOperationException.
+
+Fail-fast iterator
+------------------
+When we are iterating a collection and if we add new value into collection,in this case it will throw concurentModification Exception.this is generally seen in HashMap.
+
+Fail-safe iterator
+------------------
+To avoid fail-fast type of iteration,we have concurentHashMap.Fail safe iterator do not throw any exception.Fail safe iterator makes a copy of underlying data structure(object array) and iterates over the copied data structure.Introduced in java 1.5.Fail-safe is efficient when there are more number of reads than writes.
+ConcurrentHashMap
+-----------------
+public void Failsafe(){
+			
+			ConcurrentHashMap<String,String> m= new ConcurrentHashMap<String,String>();
+			
+			m.put("1", "sample1-safe");
+			m.put("2", "sample2-safe");
+			m.put("3", "sample3-safe");
+			m.put("4", "sample4-safe");
+			m.put("5", "sample5-safe");
+			
+			for(Map.Entry m1: m.entrySet())
+			{
+				System.out.println("key"+m1.getKey()+" Value"+m1.getValue());
+				m.put("6","Sample6-safe");
+			}
+		}
+		
+O/P: key1 Valuesample1-safe
+key2 Valuesample2-safe
+key3 Valuesample3-safe
+key4 Valuesample4-safe
+key5 Valuesample5-safe
+key6 ValueSample6-safe
+
+Atomic Actions
+---------------
+These are actions either you can complete or incomplete but not able to stop in middle.Let us assume we are writing a multi threaded program.If we have i++ which is not thread safe.Generally it involves 3 steps...1)read the value which is currently stored in it 2)Add one to it 3)store it in i.
+In multi threaded environment,if thread1 is reading step1 and immediately after thread2 stores the values,then thread1 is missing value.To avoid these scenario's we use atomic actions like "AtomicInteger".
+
+AtomicInteger has methods like incrementAndget,decrementAndget,AddandGet,etc....
+
+MultiThreading
+==============
+Creating a thread---There are 2 ways to create a thread.one is by Extending Thread class and another is by implementing runnable interface.
+
+***If you created a thread using Thread class, you need to call start method to run thread.
+public class DemoStringBuilderVsBuffer extends Thread{
+public void run(){
+		
+		System.out.println("welcome buddy to threads!!!");
+	}
+	
+	public static void main(String args[]){
+		
+		DemoStringBuilderVsBuffer ds = new DemoStringBuilderVsBuffer();
+		ds.start();///This runs thread
+	}
+}	
+
+***If you created a thread using runnable interface,you need to pass the object to thread object.
+	class TestThread implements Runnable
+	{
+		
+		public void run()
+		{
+			System.out.println("you are at runnable interface implementation class");
+		}
+	public static void main(String args[]){
+		
+		TestThread t= new TestThread();
+		
+		Thread t1= new Thread(t);
+		t1.start();
+	}
+	}
+
+States of a thread
+-------------------
+new-- If a thread is created but start method is not yet called...then it's in New state.
+runnable--A thread is in runnable state when it is eligible to run,but not running yet.
+running-- If a thread is running then it is in running state.
+blocked\waiting--If a thread is blocked or waiting then it is in Blocked/waiting state.
+terminated/dead-- If a thread completes execution then it is in terminated/dead state.
+
+Priority
+--------
+Scheduler can be requested to allocate more number of cpu's to thread by increasing thread priority.Each thread in java is assigned a default priority5.This priority can be increased or decreased(Range 1-10).
+If 2 threads are waiting then scheduler pick with high priority one.
+Example--   Thread t = new Thread()
+			t.setPriority(8);
+			
+Executor Service
+----------------
+It is a newer interface.It is a new way of executing tasks asynchronusly.It is like a thread pool.
+
+ExecutorService es = Executors.newSingleThreadExecutor();		
+			es.execute(new Runnable(){
+			public void run(){
+				System.out.println("this is executor service example");
+			}
+			});
+O/P: This will print this is executor service example.
+
+Different ways of creating exceutor services
+---------------------------------------------
+Executors.newSingleThreadExecutor()---This will allow one thread to be created and run.
+Executors.newFixedThreadPool(10)---  creates a thread pool that reuses a fixed number of threads.only 10 number of threads can be created.
+Executors.newScheduledThreadPool(10)--- creates a thread pool that can schedule commands to run after a given time/delay or to exceute periodically.
+
+*** To find out whether executor service task is executed is by Future.
+
+Future f = es.submit(new Runnable(){
+				public void run(){
+					System.out.println("this is executor service example");
+				}
+				});
+			try {
+				f.get(); // RETURNS NULL if task finished correctly.
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+Callable()
+----------
+Using a callable,you can return a result for a thread. This is similar to runnable execpt that call() method returns a result.
+Future fc = es.submit(new Callable() {
+			public String call() throws Exception{
+				return "Result";
+			}
+			});
+			try {
+				System.out.println(fc.get());
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+
+Synchronization
+----------------
+Without synchronization,value set by other threads will be overridden.The way we can prevent multiple threads executing a same method is by using synchronized keyword on the method.If a method is marked as synchronized, a different thread gets access to the method only when no other thread is currently executing the method.
+***only one thread can access any of the synchronized method in a class.
+Synchronized block--- 
+
+void synchronizedExample()
+{
+synchronized(this){
+//only few methods or lines of code can be synchronized inside the method.
+}
+}
+*** Static method and blocks can be synchronized on a class level.
+join-- This method is basically to wait for a specific thread to complete.until unless one thread is completed it will not allow others to execute.
+
+thread3.start()
+thread2.start()
+thread3.join() or join(1000) //wait for thread3 to complete.
+thread4.start()
+
+Yeild--- It is a static method.A call to yeild method changes the state of thread from RUNNING to RUNNABLE.if no priority thread is found scheduler will pick up yeild method thread.
+
+DeadLock--- If thread1 is waiting for thread2 and thread2 is waiting for thread1 then this is called dead Lock.
+Methods for inter thread communication are wait,notify and notifyAll.Wait and notify methods are used in a combination.
+
+**Lazy Loading---
+
+Reflection
+==========
+It is to examine or modify the run time behaviour of applications running in java virtual machine.
+usage of reflection-- in eclipse for auto completing code/methods,In perisitance,mapping your objects to database table at runtime,In Junit,getting the information about the methods that are invoked,In Spring for getting bean definition,getting getters and setters etc....
+Drawbacks: performace overhead,security restrictions,against OOPs principles.
+
+** There are some classes which uses reflection in java.Those classes are class(java.lang.class),Member(java.lang.reflect.memeber),feild,Constructor,Method,Array(java.lang.reflect.array)
+
+
+
+
+
+Inheritance
+===========
+Basically inheritance is used to find common ground/things in between classes.
+Method Overloading
+------------------
+A method having the same name as another method but with different parameters is called Method overloading.
+can be applicable for methods in a class or sub class which extended super/parent class.
+
+Overloading can be mainly used in java-constructors(like hashamp...) and in some methods.
+
+Method Overriding
+-----------------
+Creating a sub class method with same signature as that of a method in super class.
+This used in java API's like hashmap...
+
+Interface
+==========
+This defines what are the responsibilities of a class.
+
+Abstract Class
+==============
+Abstract class allows to paritally implement your class.
+
+Functional Programming
+=======================
+No changes to state of code...this is the basic purpose of functional programming.For functional programming we use stream and lambda expressions to make sure we are not having a state.
+*** Anything which is a list of numbers is called stream.In technical terms,A stream is a source of objects.
+
+
+List<Integer> numbers = Arrays.aslist(1,3,4,2,7);
+
+int sum=numbers.stream   //create a stream
+			.filter(number -> (number%2!=0)) //Intermediate Operation
+			.reduce(0,Integer::sum);         //Terminal Operation
+			
+			
+Features introduced in versions
+================================
+Java 1.5
+--------
+Generics,Enhanced For Loop,Auto Boxing/unBoxing,varargs,static import,Concurrent Collections(copyOnwrite,compare and swap),locks,annotations.
+Java 1.6
+---------
+some changes in api's and some improvements to performances.
+Java 1.7
+--------
+Diamond Operator(Map<String,List<Thread>> trades = new TreeMap<>()),Using string in switch statements,Automatic resource management,numeric laterals with underscore(int i = 1_00_000;),improved exception handling(Multiple catch blocks).
+Java 1.8
+---------
+Lambada Expressions: Runnable java8 = () -> {sop("Hey java 8 Lambada Expression");};
+Nashorn: Java Script engine that enables us to run the javascript to run on a jvm
+String.join() function
+Streams
+
+JAVA 8 Tutorial
+================
+why Java8-- mainly three reasons are there for developing java8---advances in processing power(lambadas),passing behaviours(functional programming support),interface unlocking.
+
+***Bullet points java 1.7 to 1.8 improved things ***
+
+you can directly use sort method in collections instead of using collections.sort method.Syntax is you have to define comparator operations inside sort method itself.
+
+Llist.sort(new Comparator<Employee>(){
+		 public int compare(Employee o1, Employee o2) {
+			 return o1.getName().compareTo(o2.getName());
+		 } 
+		 });
+		 
+Lambda Expression
+------------------
+A lambada expression is a anonymus function,easy to use any where in the code.It is a block of code.It is basically a behaviour based one.You can create a lambda expression like below.
+
+(input expression) -> body
+
+Here Left hand side is for inputs,Right hand side is for logic and arrow token is for separator
+		 
+
+***Why should we go with funtional programming in java compared with other funtional programing supported languages?
+A) It is because we have a good performace impact and we have pure functions	
+
+Method References:
+------------------
+Sometimes, however, a lambda expression does nothing but call an existing method.Method references are used to refer to the existing method by name.
+
+Stream.generate(Math::random)
+.limit(10)
+.forEach(System.out::println); 
+
+// equivalent to System.out::println
+x -> System.out.println(x)
+
+// equivalent to Math::max
+(x,y) -> Math.max(x,y)
+
+
+Syntax:
+-------
+
+object::instanceMethod
+    Refer to an instance method using a reference to the supplied object, as in Syste⁠m.out::println
+
+Class::staticMethod
+    Refer to static method, as in Math::max
+
+Class::instanceMethod
+    Invoke the instance method on a reference to an object supplied by the context, as in String::length
+	 
+
+Functional Interface:
+---------------------
+An interface which has only one abstract method then it is called as functional interface.Java will understand functional interface by default or we can specify interface as functional interface by declaring like this @functionalinterface. If interface have more than one abstract method and @functionalinterface is annotated then it will throw compilation error. An functionalinterface can have a single abstract method and any number of static or default methods in it.But these static or default methods must be implemented.If an interface has more than one abstrat method and must not annotated with @functionalinterface then it will be considered as normal interface.
+
+Example 1:
+
+@FunctionalInterface
+public interface MyInterface 
+{
+    int myMethod();
+	// int myOtherMethod();
+	default String sayHello()
+	{
+	return "Hello, World!";
+    }
+    static void myStaticMethod()
+	{  
+	System.out.println("I'm a static method in an interface");    
+	}
+}
+
+****Extending a functional interface—no longer functional
+
+public interface MyChildInterface extends MyInterface {
+    int anotherMethod(); 
+}
+
+The MyChildInterface is not a functional interface, because it has two abstract methods: myMethod, which it inherits from MyInterface; and anotherMethod, which it declares. Without the @FunctionalInterface annotation, this compiles, because it’s a standard interface. 
+
+The rules for functional interfaces say that methods from Object don’t count against the single abstract method limit, so Comparator is still a functional interface.
+
+Static Methods in Interfaces:
+
+The key points to remember are:
+1)Static methods must have an implementation
+2)You cannot override a static method
+3)Call static methods from the interface name
+4)You do not need to implement an interface to use its static methods
+
+Example 2:
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.IntStream;
+
+@FunctionalInterface  // this is optional
+interface Cab         //
+{
+	void bookCab();   //->by default public abstract void bookcab();
+}
+interface Cab1
+{
+	int bookCab();
+}
+
+class Ola implements Cab
+{
+	public void bookCab() {
+		System.out.println("Ola booked || Arriving Soon ||");
+	}	
+}
+public class LambdaExamples {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+	
+		//1.one way to call the interface	
+		Cab c = new Ola();
+		c.bookCab();
+		
+		//2. Anonymus class implemetation
+		Cab c1 = new Cab() {
+			@Override
+			public void bookCab() {
+				System.out.println("Ola booked || Arriving Soon ||");	
+			}	
+		};
+		
+		c1.bookCab();
+		
+		//3. lambda expression -> functional interface.
+		
+		Cab c2 = () ->{
+			System.out.println("Ola booked || Arriving Soon ||");
+			
+		};
+		c2.bookCab();
+		
+		//4. Lambda expression can also return something
+		Cab1 c3 = () ->{
+			System.out.println("Ola booked || Arriving Soon ||");
+			return 250;
+		};
+		System.out.println(c3.bookCab());        
+	}
+
+}
+
+Java.Util.Function Package
+--------------------------
+The interfaces in java.util.function fall into four categories:
+ (1) consumers, (2) suppliers, (3) predicates, and (4) functions. 
+Consumers take a generic argument and return nothing. Suppliers take no arguments and return a value. Predicates take an argument and return a boolean. Functions take a single argument and return a value.
+
+Consumers:
+----------
+
+The java.util.function.Consumer interface has as its single, abstract method, void accept(T t).It can have default methods.
+The accept method takes a generic argument and returns void. One of the most frequently used examples of a method that takes a Consumer as an argument is the default forEach method in java.util.Iterable
+
+
+Additional Consumer interfaces 
+---------------------------------
+Interface 		Single abstract method
+----------		------------------------
+IntConsumer		void accept(int x)
+
+DoubleConsumer	void accept(double x)
+
+LongConsumer	void accept(long x)
+
+BiConsumer		void accept(T t, U u)
+
+Suppliers:
+----------
+It does not have any static or default methods. It contains only a single, abstract method, T get().Implementing Supplier means providing a method that takes no arguments and returns the generic type.One simple example of a Supplier is the Math.random method, which takes no arguments and returns a double.
+
+Additional Supplier interfaces
+-------------------------------
+Interface 			Single abstract method
+---------			----------------------
+IntSupplier			int getAsInt()
+	
+DoubleSupplier		double getAsDouble()
+
+LongSupplier		long getAsLong()
+
+BooleanSupplier		boolean getAsBoolean()
+
+
+Optional Class
+--------------
+Optional is a nonnull object that either wraps a value or is empty. It is typically returned by methods that may reasonably expect to have no result, like finding a value in an empty collection.
+*** The orElse method on Optional returns either the contained element, or a specified default.
+
+Predicates
+----------
+Predicates are used primarily to filter streams. Given a stream of items, the filter method in java.util.stream.Stream takes a Predicate and returns a new stream that includes only the items that satisfy the given predicate.
+
+The single abstract method in Predicate is boolean test(T t), which takes a single generic argument and returns true or false. The complete set of methods in Pred⁠icate, including state and defaults
+
+Ex: Collection.removeIf(Predicate<? super E> filter)
+
+Example 2-6. Methods in java.util.function.Predicate
+
+default    Predicate<T> and(Predicate<? super T> other)
+static <T> Predicate<T> isEqual(Object targetRef)
+default    Predicate<T> negate()
+default    Predicate<T> or(Predicate<? super T> other)
+boolean    test(T t)
+
+Function:
+---------
+You need to implement the java.util.function.Function interface to transform an input parameter into an output value.The functional interface java.util.function.Function contains the single abstract method apply, which is invoked to transform a generic input parameter of type T into a generic output value of type R.
+
+Methods in the java.util.function.
+..................................
+Function interfacedefault <V> Function<T,V> andThen(Function<? super R,? extends V> after) R apply(T t)default <V> 
+Function<V,R> compose(Function<? super V,? extends T> before)
+static  <T> Function<T,T> identity()
+
+The most common usage of Function is as an argument to the Stream.map method. 
+
+The argument to the map method in Example 2-13 could have been a ToIntFunction, because the return type on the method is an int primitive. The Stream.mapToInt method takes a ToIntFunction as an argument, and mapToDouble and mapToLong are analogous. The return types on mapToInt, mapToDouble, and mapToLong are IntStream, DoubleStream, and LongStream, respectively.What if the argument and return type are the same? The java.util.function package defines UnaryOperator for that. As you might expect, there are also interfaces called IntUnaryOperator, DoubleUnaryOperator, and LongUnaryOperator, where the input and output arguments are int, double, and long, respectively. An example of a UnaryOperator would be the reverse method in StringBuilder, because both the input type and the output type are strings.
+
+List<String> names = Arrays.asList("Mal", "Wash", "Kaylee", "Inara",
+        "Zoë", "Jayne", "Simon", "River", "Shepherd Book");
+
+List<Integer> nameLengths = names.stream()
+        .map(new Function<String, Integer>() { 1
+            @Override
+            public Integer apply(String s) {
+                return s.length();
+            }
+        })
+        .collect(Collectors.toList());
+
+nameLengths = names.stream()
+        .map(s -> s.length())                  2
+        .collect(Collectors.toList());
+
+nameLengths = names.stream()
+        .map(String::length)                   3
+        .collect(Collectors.toList());
+
+System.out.printf("nameLengths = %s%n", nameLengths);
+// nameLengths == [3, 4, 6, 5, 3, 5, 5, 5, 13]
+
+1    Anonymous inner class
+2    Lambda expression
+3    Method reference
+
+Functions are also used extensively in the Collectors utility class for grouping and downstream collectors.
+
+Streams:
+========
+A stream is a sequence of elements that does not save the elements or modify the original source.Streams are also lazy. A stream will only process as much data as is necessary to reach the terminal condition.Since streams do not process any data until a terminal expression is reached, each of the examples in this recipe will add a terminal method like collect or forEach at the end.
+
+The new java.util.stream.Stream interface in Java 8 provides several static methods for creating streams. Specifically, you can use the static methods Stream.of, Stream.iterate, and Stream.generate.
+
+***The @SafeVarargs annotation is part of Java generics. It comes up when you have an array as an argument, because it is possible to assign a typed array to an Object array and then violate type safety with an added element. 
+
+Example for Stream.of method
+-----------------------------
+String names = Stream.of("Gomez", "Morticia", "Wednesday", "Pugsley")
+ .collect(Collectors.joining(","));
+ System.out.println(names);
+ // prints Gomez,Morticia,Wednesday,Pugsley
+
+Stream.iterate method
+----------------------
+This is useful when you have a way to produce the next value of the stream from the current value.
+
+Stream.iterate(LocalDate.now(), ld -> ld.plusDays(1L))
+    .limit(10)
+    .forEach(System.out::println)
+// prints 10 days starting from today
+ 
+Stream.generate Method
+-----------------------
+Example
+-------
+long count = Stream.generate(Math::random)
+    .limit(10)
+    .forEach(System.out::println) 
+
+*** There are three child interfaces of Stream specifically for working with primitives: IntStream, LongStream, and DoubleStream. IntStream and LongStream each have two additional factory methods for creating streams, range and rangeClosed.	
+ 
+ List<Integer> ints = IntStream.range(10, 15)
+    .boxed()  //    Necessary for Collectors to convert primitives to List<T>.
+    .collect(Collectors.toList());
+System.out.println(ints);
+// prints [10, 11, 12, 13, 14]
+
+List<Long> longs = LongStream.rangeClosed(10, 15)
+    .boxed()  
+    .collect(Collectors.toList());
+System.out.println(longs);
+// prints [10, 11, 12, 13, 14, 15]
+
+*** The arguments show the difference between the two: rangeClosed includes the end value, and range doesn’t. Each returns a sequential, ordered stream that starts at the first argument and increments by one after that.
+ 
+Boxed Streams
+-------------
+In general,you can convert from a stream object to a collection using one of the static methods in the Collectors class.The same process doesn’t work on streams of primitives.You have three alternatives available as workarounds.
+
+ First, use the boxed method on Stream to convert the IntStream to a Stream<Integer>.
+ One alternative is to use the mapToObj method to convert each element from a primitive to an instance of the wrapper class
+ Another alternative is to use the three-argument version of collect, whose signature is:
+
+<R> R collect(Supplier<R> supplier,
+              ObjIntConsumer<R> accumulator,
+              BiConsumer<R,R> combiner)
+			  
+Examples for Boxed:
+-------------------
+List<Integer> ints = IntStream.of(3, 1, 4, 1, 5, 9)
+    .boxed() 1
+    .collect(Collectors.toList());
+
+Examples for MapToObj:
+----------------------
+List<Integer> ints = IntStream.of(3, 1, 4, 1, 5, 9)
+    .mapToObj(Integer::valueOf)
+    .collect(Collectors.toList())
+
+
+Examples for three-argument version of collect:
+-----------------------------------------------
+List<Integer> ints = IntStream.of(3, 1, 4, 1, 5, 9)
+    .collect(ArrayList<Integer>::new, ArrayList::add, ArrayList::addAll);
+ 
+ *** In JDK 9, the Integer(int val) constructor is deprecated for performance reasons. The recommendation is to use Int⁠eger​.valueOf(int) instead.
+ 
+Reduce Method:
+==============
+You want to produce a single value from stream operations.Use the reduce method to accumulate calculations on each element.The primitive streams IntStream, LongStream, and DoubleStream have several reduction operations built into the API.
+
+Reduction Operations in IntStream
+----------------------------------
+Method 						Return type
+
+average						OptionalDouble
+count						long
+max							OptionalInt
+min							OptionalInt
+sum							int
+summaryStatistics			IntSummaryStatistics
+collect(Supplier<R> supplier, ObjIntConsumer<R> accumulator, BiConsumer<R,R> combiner)		R
+reduce						int, OptionalInt
+
+**** some of them return Optionals, because if there are no elements in the stream (perhaps after a filtering operation) the result is undefined or null.
+
+Example
+-------
+String[] strings = "this is an array of strings".split(" ");
+long count = Arrays.stream(strings)
+        .map(String::length)           1
+        .count();
+System.out.println("There are " + count + " strings");
+
+int totalLength = Arrays.stream(strings)
+        .mapToInt(String::length)      2//Returns a IntStream
+        .sum();
+System.out.println("The total length is " + totalLength);
+
+OptionalDouble ave = Arrays.stream(strings)
+        .mapToInt(String::length)      2
+        .average();
+System.out.println("The average length is " + ave);
+
+OptionalInt max = Arrays.stream(strings)   //Optinals will return value null if returned value is null,if not prints it's value.
+        .mapToInt(String::length)      2
+        .max();                        3
+
+OptionalInt min = Arrays.stream(strings)
+        .mapToInt(String::length)      2
+        .min();                        3
+
+System.out.println("The max and min lengths are " + max + " and " + min);
+
+1)count is a Stream method, so no need to map to IntStream
+2)sum and average are on the primitive streams only
+3)max and min without Comparator only on primitive streams
+
+**** The Stream interface has max(Comparator) and min(Comparator), where the comparators are used to determine the max or min element. In IntStream, there are overloaded versions of both methods that do not need an argument, because the comparison is done using the natural order of integers. 
+ 
+Basic reduce implementations
+----------------------------- 
+There are two overloaded versions of the reduce method in IntStream:
+OptionalInt reduce(IntBinaryOperator op)int
+reduce(int identity, IntBinaryOperator op)
+
+The first takes an IntBinaryOperator and returns an OptionalInt. The second asks you to supply an int called identity along with an IntBinaryOperator. 
+
+*** The word identity means that you should supply a value to the binary operator that, when combined with any other value, returns the other value. For addition, the identity is zero. For multiplication, the identity is 1. For string concatenation, the identity is the empty string.
+
+OptionalInt method example: 
+
+int sum = IntStream.rangeClosed(1, 10)
+    .reduce((x, y) -> x + y).orElse(0);
+
+int reduce method example:
+
+int doubleSum = IntStream.rangeClosed(1, 10)
+    .reduce(0, (x, y) -> x + 2 * y);	
+ 
+Note: when you use the version of reduce with an initial value for the accumulator, the return type is int rather than OptionalInt.
+
+Ex1:
+
+String s = Stream.of("this", "is", "a", "list")
+        .reduce("", String::concat);
+System.out.println(s);     
+
+Ex2:
+
+int sum = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+                .reduce(0, Integer::sum);
+System.out.println(sum);
+
+***not much important statement*** To check whether sort is correct we can use Reduce Method.
+
+Debugging Streams with peek
+---------------------------
+You want to see the individual elements of a stream as they are processed.Invoke the peek intermediate operation wherever you need it in a stream pipeline. 
+ 
+The declaration of the peek method is:
+
+Stream<T> peek(Consumer<? super T> action)
+
+According to the Javadocs, the peek method “returns a stream consisting of the elements of this stream, additionally performing the provided action on each element as they are consumed from the resulting stream.”
+
+Peek method Example:
+
+public int sumDoublesDivisibleBy3(int start, int end) {
+	    return IntStream.rangeClosed(start, end)
+	        .peek(n -> System.out.printf("original: %d%n", n)) 
+	        .map(n -> n * 2)
+	        .peek(n -> System.out.printf("doubled : %d%n", n)) 
+	        .filter(n -> n % 3 == 0)
+	        .peek(n -> System.out.printf("filtered: %d%n", n)) 
+	        .sum();
+	}
+pass(100,200)-> prints all the operations.
+
+Converting String to IntStream and Instream to String back:
+-----------------------------------------------------------
+The String class implements the CharSequence interface, and that interface contains two new methods that produce an IntStream. 
+
+Stream methods in java.lang.CharSequencedefault 
+1)IntStream chars()
+2)default IntStream codePoints()
+
+These 2 methods are used to convert to IntStream from a string.
+
+Example String to IntStream:
+
+String test = "SAMPLE for Converting to int stream";
+IntStream value= test.toLowerCase().chars(); //using chars for conversion
+IntStream value= test.toLowerCase().codePoints(); //using codePoints
+		value.forEach(System.out::println); //prints int values
+System.out.println(value.mapToObj(String::valueOf).collect(Collectors.joining(","))); //Another way to print the IntStream values
+
+Use Streams.collect method of three-argument type to convert back to String from IntStream.
+
+Example InStream to String:
+//using same example above for conversion
+String result = value.collect(StringBuilder::new,StringBuilder::appendCodePoint,StringBuilder::append).toString().replaceAll("sample", "SAMPLE");
+		System.out.println("returned string is: "+result);
+
+the difference between chars and codepoint is chars converts to UTF-16 representation and places it in a char array,WhereAs codepoint converts to code point value(position).Both are can give same result.
+
+
+Count Method
+============
+Use either the Stream.count or Collectors.counting methods for counting elements in a stream.count works on a principle of map all the elements to ones and add them up.
+
+//using Stream.count method
+long count = Stream.of(3, 1, 4, 1, 5, 9, 2, 6, 5).count();
+System.out.printf("There are %d elements in the stream%n", count); 
+
+//Using Collectors.collect method
+
+count = Stream.of(3, 1, 4, 1, 5, 9, 2, 6, 5)
+    .collect(Collectors.counting());
+System.out.printf("There are %d elements in the stream%n", count);
+
+Here Collectors.count method is used to collect the stream of elements or results after processing of PartitioningBy or GroupBy methods.
+
+SummaryStatistics Method:
+-------------------------
+You want the count, sum, min, max, and average of a stream of numerical values.Use the summaryStatistics method in IntStream, DoubleStream, and LongStream.The class also has getter methods for the individual quantities: getCount, getSum, getMax, getMin, and getAverage. 
+
+DoubleSummaryStatistics stats = DoubleStream.generate(Math::random)
+    .limit(1_000_000)
+    .summaryStatistics();
+
+System.out.println(stats);  1//use tostring to print
+
+System.out.println("count: " + stats.getCount());
+System.out.println("min  : " + stats.getMin());
+System.out.println("max  : " + stats.getMax());
+System.out.println("sum  : " + stats.getSum());
+System.out.println("ave  : " + stats.getAverage());
+
+ 
+There are two other interesting methods in the DoubleSummaryStatistics class:
+
+void accept(double value)
+void combine(DoubleSummaryStatistics other)
+
+The accept method records another value into the summary information. The com⁠bine method combines two DoubleSummaryStatistics objects into one. They are used when adding data to an instance of the class before computing the results.
+ 
+*** Use accept and combine methods to print same set of statistics/method values by using 3 argument collect method.
+ 
+ 
+ DoubleSummaryStatistics teamStats = teams.stream()
+        .mapToDouble(Team::getSalary)
+        .collect(DoubleSummaryStatistics::new,
+                 DoubleSummaryStatistics::accept,
+                 DoubleSummaryStatistics::combine);
+ 
+ ****The argument to the Collectors.summarizingDouble method is the salary for each team. Either way, the result is the same.
+ teamStats = teams.stream()
+        .collect(Collectors.summarizingDouble(Team::getSalary));
+		
+FindFirst or FindAny methods
+============================
+To find the first element in a stream that satisfies a particular condition.Use the findFirst or findAny method after applying a filter.The findFirst and findAny methods in java.util.stream.Stream return an Optional describing the first element of a stream.
+
+**If the stream has no encounter order, then any element may be returned. 
+
+	Example: Using findFirst on an empty
+	streamOptional<Integer> firstEvenGT10 = 
+	Stream.of(3, 1, 4, 1, 5, 9, 2, 6, 5)
+    .filter(n -> n > 10)
+    .filter(n -> n % 2 == 0)
+    .findFirst();
+	System.out.println(firstEvenGT10);
+ 
+ 
+ 
+Data Structure
+================
+
+Big O Notation
+---------------
+Big O is term we use for finding how long an algorithm takes to run.It describes how quickly it grows relative to the input,as input gets large.
+There are different complexites available based on number of inputs vs time taken.Best one is O(1).
+
+O(1)
+-----
+for(int items:arrayofItems){
+	System.out.println(arrayofItems[0]);//prints only one element
+}
+
+O(n)
+-----
+for(int items:arrayofItems){
+	System.out.println(items);//It has to loop through and print all the elements inside that array.
+}
+O(n*2)
+------
+
+for(int firstitem:arrayofItems){
+for(int seconditems:arrayofItems){
+	System.out.println(seconditems); //if we have 1000 items,then we have to print 1,00,000 times and it grows high.
+}
+}
+
+Stack
+=====
+when to use stack
+------------------
+traversal/inorder/preorder/undo/redo operation in word processors,Expression evaluation and syntax parsing,Many virtual machines like JVM are stack oriented(if we are using some memory for refernce we will take and pop it when finshes).It is defined in java.util package.it has peek method which will return first element in a stack but not remove that element.
+
+Implementation of stack
+------------------------
+
+class Stack { 
+    static final int MAX = 1000; 
+    int top; 
+    int a[] = new int[MAX]; // Maximum size of Stack 
+  
+    boolean isEmpty() 
+    { 
+        return (top < 0); 
+    } 
+    Stack() 
+    { 
+        top = -1; 
+    } 
+  
+    boolean push(int x) 
+    { 
+        if (top >= (MAX - 1)) { 
+            System.out.println("Stack Overflow"); 
+            return false; 
+        } 
+        else { 
+            a[++top] = x; 
+            System.out.println(x + " pushed into stack"); 
+            return true; 
+        } 
+    } 
+  
+    int pop() 
+    { 
+        if (top < 0) { 
+            System.out.println("Stack Underflow"); 
+            return 0; 
+        } 
+        else { 
+            int x = a[top--]; 
+            return x; 
+        } 
+    } 
+  
+    int peek() 
+    { 
+        if (top < 0) { 
+            System.out.println("Stack Underflow"); 
+            return 0; 
+        } 
+        else { 
+            int x = a[top]; 
+            return x; 
+        } 
+    } 
+} 
+
+Queue
+======
+
+We add elements to queue by using offer() method.To remove we use poll() method.
+
+
+HashTable
+==========
+Implementation of custom hash table
+-----------------------------------
+public class CustomHashTable<K,V>
+{
+private static int Number_of_Buckets = 10;
+
+public void put(K k,V v){
+int index = k.hashcode() % Number_of_Buckets;  //Initially you have to supply number of buckets
+Entry<K,V> KvEntry = new Entry<>(k,v);
+
+List<Entry<K,V>> bucket = buckets.get(index);
+bucket.remove(KvEntry);
+bucket.add(KvEntry);
+
+}
+
+}
+------Entry Class----------
+Private Class Entry<K,V>
+{
+private final K key;
+private final V value;
+
+public Entry(K key, V value)
+{
+this.key=key;
+this.value=value;
+}
+
+public K getKey(){ return key; }
+
+public V getValue() { return value; }
+
+}
+
+Binary Search Tree
+==================
+A BST is data structure which has two nodes containing data and 2 references to other nodes on left and right 
+
+Methods in BST
+--------------
+Insert(int n),find(int n),delete(int n),getInorder()--for getting values in order.
+display(n)-this prints all elements in increasing order and has O(n) complexity.
+
+Implementing a BST
+-------------------
+
+public void testBST()
+{
+BinarySearchTree b = new BinarySearchTree();
+
+b.insert(3);
+b.insert(8);
+b.insert(1);
+b.insert(4);
+b.insert(6);
+b.insert(2);
+b.insert(10);
+b.insert(9);
+b.insert(20);
+b.insert(25);
+b.insert(15);
+b.insert(16);
+
+}
+
+Node
+----
+If you are initialising BST you have to intialize node(class).A Node has 3 feilds.A node class is defined below.
+
+Class Node{
+int data; //It has actuall data that will be inserted to specific nodes
+Node left; //This has a value lower than actual value of node.
+Node right; //This has a value greater than actual value of node.
+
+}
+ 
+BST Find implementation
+------------------------
+
+public Class BinarySearchTree{
+
+private Node root = null;
+
+public boolean find(int id)
+{
+Node current = root;
+while(current != null){
+	if(curent.data == id){
+		return true;
+	}
+	else if(current.data<id){
+	current =current.left;
+	}
+	else if(current.data>id){
+	current =current.right;
+	}
+}
+return false;
+}
+
+public void insert(int id){
+
+Node newNode= new Node(id);
+if(root == null){
+root= newNode;
+Node Current =root;
+
+Node parent =null;
+while(true){
+	parent =current;
+		if(id<current.data)
+		{
+			current =current.left;
+			if(current == null)
+			{
+				parent.left=newNode;
+				return;
+			}
+		}
+		else{
+			current= current.right;
+				if(current == null)
+				{
+					parent.right = newNode;
+					return;
+				}
+			}
+
+		}
+	}
+   }
+  }
+}
+
+
+
+
+JEE Application Development
+===========================
+
+
+
+Tomcat Server Application deployment:
+
+Go to tomcat server installed location and go to webapps folder and deploy war file of your application and start your server.Make sure you stop your server before you deploy your application.You can control your server using monitor tomcat tool from tomcat installation.
+
+Java EE8
+========
+Java Specification Requests (JSRs)
+----------------------------------
+JAX-RS 2.1(JSR370)
+JSON Binding 1.0(367)
+Java API for JSON Processing1.1(JSR374)
+
+========================================
+
+
+  
+ 
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+

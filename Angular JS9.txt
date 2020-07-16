@@ -1,0 +1,162 @@
+Angular JS9
+===========
+Angular is an open-source JavaScript library that is sponsored and maintained by Google.Angular is mainly used to develop single page applications(SPA).
+
+Traditional Application vs SPA:
+-------------------------------
+
+In TA,Time taken to process a request is high because it loads entire page each time it receives a request.Even for a small request it has to load entire page(HTML) and other components.
+
+In SPA, when a request is received it loads entire page(HTML) once and whenever there is another request in the page,page will not load but uses internal navigation to get the data. it uses loaded json and other components data to serve the request.
+
+Angular Features:
+----------------
+1)Extendable
+2)Maintainable: Angular apps are easy to debug and fix, which means that long-term maintenance is simplified.
+3)Testable: Angular has good support for unit and end-to-end testing, meaning you can find and fix defects before your users do
+4)Standardised
+
+Tools and Editors:
+-----------------
+Use Node.js and NPM and any standard Editor tools.
+
+Installing Node.js and NPM:
+---------------------------
+NPM comes as a part of binary and make sure you're installing npm as a part of node.js
+
+use below commads to verify installation
+
+node -v
+v12.18.2
+
+npm -v
+6.14.5
+
+Install Angular CLI and BootStrap:
+----------------------------------
+npm install --global @angular/cli@9.0.1
+## To install angular CLIv9
+
+ng add @ng-bootstrap/ng-bootstrap
+##It will install ng-bootstrap for the default application specified in your angular.json.
+
+ng add @ng-bootstrap/ng-bootstrap --project myProject
+##If you have multiple projects and you want to target a specific application, you could specify the --project option 
+
+**** ##There are two styles sections in the angular.json file. Add the setting shown in Listing 2-12 to the one that is closest to the top of the file.
+
+ "styles": [
+         "src/styles.css",
+         "node_modules/bootstrap/dist/css/bootstrap.min.css"
+       ]
+
+Working with Angular JS9
+-------------------------
+Create a new project todo by using below command
+ng new todo --routing false --style css --skip-git --skip-tests
+
+To start Angular development tools and do initial build use below command:
+ng serve
+ng serve --open   //this will open the application url in the web browser
+
+Angular uses typescript and file with extension .ts belongs to typescript.
+Ex:
+export class TodoItem {
+    constructor(taskVal: string, completeVal: boolean = false) {
+        this.task = taskVal;
+        this.complete = completeVal;
+    }
+    task: string;
+    complete: boolean;
+}
+
+The export keyword is used to identify data or types that you want to use elsewhere in the application.The class keyword declares a class, and the constructor keyword denotes a class constructor.
+
+Syntax: import {class name} from "./filename";
+
+import { Component } from '@angular/core';
+import { TodoItem } from "./todoItem";
+
+The import statement specifies the types that are imported between curly braces. In this case, the import statement is used to load the Component type from the module. @angular/core contains the key Angular functionality, including support for components and also many clasess packaged.
+
+The import keyword declares a dependency on the TodoItem class and specifies the code file that defines it.
+"./" which indicates that the module is defined relative to the current file.
+
+Example:
+
+<h3>
+  {{ username }}'s To Do List
+  <h6>{{ itemCount }} Items</h6>
+</h3>
+
+The {{ and }} characters are an example of a data binding, which means they create a relationship between the template and a data value. 
+
+Angular Component:
+------------------
+An Angular component is responsible for managing a template and providing it with the data and logic it needs.The angular-cli setup created a placeholder component file called app.component.ts
+
+import { Component } from '@angular/core';
+import { TodoList } from "./todoList";
+import { TodoItem } from "./todoItem";
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  private list = new TodoList("Bob", [
+    new TodoItem("Go for run", true),
+    new TodoItem("Get flowers"),
+    new TodoItem("Collect tickets"),
+  ]);
+  get username(): string {
+    return this.list.user;
+  }
+  get itemCount(): number {
+    return this.list.items
+      .filter(item => !item.complete).length;
+  }
+}
+
+See Decorator:(From Above example)
+----------------------------------
+This is the @Component decorator, and, as its name suggests, it tells Angular that this is a component.This @Component decorator specifies three properties: selector, templateUrl, and styleUrls.
+
+The selector property specifies a CSS selector that matches the HTML element to which the component will be applied. The app-root element specified by this decorator is the default set by the angular-cli package. It corresponds to an HTML element that was added to the index.html file, which you can find in the src folder
+The selector property tells Angular that the content generated by the component should be inserted into the app-root element.The templateUrl property is to specify the component’s template, which is the app.component.html file for this component. The styleUrls property specifies one or more CSS stylesheets that are used to style the elements produced by the component and its template.
+
+Example:
+
+<table class="table table-striped table-bordered table-sm">
+  <thead>
+      <tr><th>#</th><th>Description</th><th>Done</th></tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let item of items; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.task }}</td>
+		  <td><input type="checkbox" [(ngModel)]="item.complete" /></td>
+          <td [ngSwitch]="item.complete">
+              <span *ngSwitchCase="true">Yes</span>
+              <span *ngSwitchDefault>No</span>
+          </td>
+      </tr>
+  </tbody>
+</table>
+
+The *ngFor expression, which is used to repeat a region of content for each item in an array. 
+##****##It is important to remember the * character when using *ngFor. 
+Angular also supports two-way data bindings, which can be used to display a data value and change it, too. Two-way bindings are used with HTML form elements.
+
+<td><input type="checkbox" [(ngModel)]="item.complete" /></td>
+
+The ngModel template expression creates a two-way binding between a data value (the item.complete property in this case) and a form element, in this case an input element.
+
+
+
+
+
+
+
+
+
